@@ -1,0 +1,17 @@
+name: CD -> Deploy Website
+on:
+  push: 
+    branches: [main]
+jobs:
+  build:
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v2
+       - name: Upload via FTP
+         uses: airvzxf/ftp-deployment-action@master
+         with:
+           server: ${{ secrets.FTP_SERVER }}
+           user: ${{ secrets.FTP_USERNAME }}
+           password: ${{ secrets.FTP_PASSWORD }}
+           local_dir: "./HtmlPages"
+           delete: false
